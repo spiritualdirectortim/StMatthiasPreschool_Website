@@ -1,0 +1,8 @@
+# Keep internal notes, data sources, and tooling off the public site.
+# The published website is the HTML pages plus css/, js/, and images/.
+docs/
+data/
+scripts/
+.claude/
+videos/
+*.md

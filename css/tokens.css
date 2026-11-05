@@ -1,0 +1,126 @@
+/* ------------------------------------------------------------------
+   St. Matthias Parish — design tokens
+   Source of truth: docs/DESIGN.md ("Sanctuary Editorial")
+   ------------------------------------------------------------------ */
+
+:root {
+  /* Palette */
+  --surface: #fbf9f4;
+  --surface-low: #f5f3ee;
+  --surface-container: #f0eee9;
+  --surface-high: #eae8e3;
+  --surface-highest: #e4e2dd;
+  --on-surface: #1b1c19;
+  --on-surface-variant: #55433e;
+  --inverse-surface: #30312e;
+  --inverse-on-surface: #f2f1ec;
+  --outline: #88726d;
+  --outline-variant: #dbc1ba;
+
+  --primary: #893c26;
+  --primary-container: #a8533b;
+  --on-primary: #ffffff;
+  --secondary: #4f6076;
+  --tertiary: #405947;
+  --tertiary-container: #58715e;
+
+  --terracotta: #A8533B;
+  --terracotta-deep: #8B3E28;
+  --terracotta-soft: #F4ECE9;
+  --navy: #1F3044;
+  --navy-deep: #131E2B;
+  --navy-soft: #EAEFF5;
+  --sage: #5A7360;
+  --sage-moss: #3F5344;
+  --sage-wash: #EDF2EE;
+  --stone-linen: #EDE8DE;
+  --stone-parchment: #FAF8F5;
+  --parchment: #F7F5F0;
+  --charcoal-ink: #1E1E1C;
+  --warm-border: #E4DDD0;
+
+  /* Type */
+  --font-display: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --font-body: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+
+  --display-lg: clamp(2.375rem, 1.9rem + 2.1vw, 3.5rem);   /* 38 → 56 */
+  --display-lh: 1.12;
+  --headline-xl: clamp(1.875rem, 1.55rem + 1.2vw, 2.5rem); /* 30 → 40 */
+  --headline-lg: clamp(1.625rem, 1.45rem + 0.6vw, 2rem);   /* 26 → 32 */
+  --headline-md: 1.5rem;                                   /* 24 */
+  --headline-sm: 1.25rem;                                  /* 20 */
+  --body-xl: 1.1875rem;                                    /* 19/30 */
+  --body-lg: 1.0625rem;                                    /* 17/26 */
+  --body-md: 0.9375rem;                                    /* 15/24 */
+  --body-sm: 0.8125rem;                                    /* 13/20 */
+  --label-lg: 0.875rem;                                    /* 14/20 .04em */
+  --label-md: 0.75rem;                                     /* 12/18 .05em */
+  --label-sm: 0.6875rem;                                   /* 11/16 .06em */
+
+  /* Shape */
+  --r-sm: 0.125rem;
+  --r: 0.25rem;
+  --r-md: 0.375rem;
+  --r-lg: 0.5rem;
+  --r-xl: 0.75rem;
+  --r-full: 9999px;
+
+  /* Space */
+  --gutter: 1rem;
+  --margin: 1.25rem;
+  --s-xs: 0.25rem;
+  --s-sm: 0.5rem;
+  --s-md: 1rem;
+  --s-lg: 1.75rem;
+  --s-xl: 2.5rem;
+  --s-2xl: 4rem;
+  --s-3xl: 6rem;
+
+  --container: 1200px;
+  --reading: 760px;
+
+  /* Elevation */
+  --shadow-float: 0 12px 32px -4px rgba(31, 48, 68, 0.08), 0 4px 12px -2px rgba(168, 83, 59, 0.04);
+  --shadow-lift: 0 18px 40px -8px rgba(31, 48, 68, 0.14), 0 6px 16px -4px rgba(168, 83, 59, 0.06);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 200ms;
+  --dur: 480ms;
+  --dur-slow: 900ms;
+
+  /* Component-level knobs (visual directions override these) */
+  --section-pad: var(--s-2xl);
+  --header-h: 4rem;
+  --card-bg: var(--stone-parchment);
+  --card-border: var(--warm-border);
+  --card-radius: var(--r-lg);
+  --overline-color: var(--terracotta);
+  --pill-bg: var(--sage-wash);
+  --pill-fg: var(--sage-moss);
+  --band-bg: var(--navy);
+  --band-fg: var(--stone-parchment);
+  --hero-overlay-a: rgba(19, 30, 43, 0.62);
+  --hero-overlay-b: rgba(19, 30, 43, 0.18);
+  --tile-rot: 1;
+  --tile-filter: none;
+  --heading-weight: 500;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 1.5rem;
+    --margin: 2rem;
+    --section-pad: 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --gutter: 2rem;
+    --margin: 3rem;
+    --section-pad: var(--s-3xl);
+    --header-h: 4.5rem;
+  }
+}

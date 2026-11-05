@@ -1,0 +1,299 @@
+/* ------------------------------------------------------------------
+   St. Matthias Preschool — components layered on the parish foundation.
+   Load order: tokens.css → site.css (both shared with the parish site,
+   unchanged) → preschool.css (this file). Uses parish tokens only, plus
+   one warm accent taken from the preschool's sun logo.
+   ------------------------------------------------------------------ */
+
+:root {
+  --sun: #E8A33D;          /* decoration only; never text on light backgrounds */
+  --sun-soft: #FCF1DE;
+  --sun-ink: #7A4A0E;      /* text on --sun-soft: 7.9:1 */
+}
+
+/* ===== Header additions ===== */
+/* The preschool's own sun logo, on a white tile so it reads over photos and parchment alike. */
+.brand { height: auto; }
+.brand .brand-logo {
+  width: 3.55rem; height: 3rem; padding: .18rem .22rem;
+  background: #fff; border-radius: var(--r-md);
+  object-fit: contain;
+  box-shadow: 0 0 0 1px rgba(31, 48, 68, .08), 0 4px 14px rgba(19, 30, 43, .18);
+}
+@media (min-width: 1024px) { .brand .brand-logo { width: 3.9rem; height: 3.3rem; } }
+@media (max-width: 479px) {
+  .header-inner { gap: .75rem; }
+  .brand { gap: .55rem; }
+  .brand .brand-logo { width: 3.05rem; height: 2.6rem; }
+  .brand-name { font-size: .95rem; letter-spacing: .045em; }
+}
+@media (max-width: 349px) { .brand-name { font-size: .8rem; } }
+.nav-item-external + .nav-item-external { margin-left: .5rem; }
+/* 1200–1359 px: the parish button shortens to "Parish" (the full name stays for screen readers). */
+@media (max-width: 1359px) {
+  .nav-long { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+.header-actions { display: flex; align-items: center; gap: .5rem; }
+.header-cta {
+  display: none; align-items: center; min-height: 2.5rem; padding: .45rem 1rem;
+  border: 1.5px solid var(--terracotta); border-radius: var(--r);
+  background: var(--terracotta); color: var(--stone-parchment);
+  font-size: var(--label-lg); font-weight: 700; letter-spacing: .02em; text-decoration: none; white-space: nowrap;
+  transition: background var(--dur-fast), border-color var(--dur-fast);
+}
+.header-cta:hover { background: var(--terracotta-deep); border-color: var(--terracotta-deep); }
+@media (min-width: 560px) and (max-width: 1199px) { .header-cta { display: inline-flex; } }
+@media (min-width: 1200px) { .header-actions { display: none; } }
+
+/* The tour button is the one filled item in the bar: the page's primary action. */
+.nav-item-cta .nav-external {
+  color: var(--stone-parchment); background: var(--terracotta); border-color: var(--terracotta);
+}
+.nav-item-cta .nav-external:hover { background: var(--terracotta-deep); border-color: var(--terracotta-deep); }
+.drawer-cta { width: 100%; margin-top: var(--s-sm); }
+
+/* Footer: the preschool's own sun logo on a white tile. */
+.footer-badge.footer-logo { width: 6.5rem; height: auto; padding: .45rem; background: #fff; border-radius: var(--r-xl); }
+
+/* ===== Shared media helpers ===== */
+img.page-hero-media,
+img.section-media,
+img.media-fill { width: 100%; height: auto; object-fit: cover; object-position: 50% 0%; }
+/* Portrait photos lose too much height at 16:9, so phone and tablet heroes use 4:3. */
+@media (max-width: 1023px) { .page-hero-media { aspect-ratio: 4 / 3; } }
+img.section-media { display: block; }
+figure { margin: 0; }
+.figure-caption { margin-top: .6rem; font-size: var(--body-sm); color: var(--on-surface-variant); }
+
+/* ===== Home hero: one headline over a slow photo crossfade ===== */
+.home-hero {
+  position: relative; isolation: isolate;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  min-height: 92svh;
+  background: var(--navy-deep); color: var(--stone-parchment);
+  overflow: clip;
+}
+/* Photos start below the header bar, so no head ever sits behind the logo or menu. */
+.home-hero-media { position: absolute; inset: var(--header-h) 0 0; z-index: -1; }
+.home-hero-slide {
+  position: absolute; inset: 0;
+  opacity: 0; visibility: hidden;
+  transition: opacity 1.4s var(--ease-in-out), visibility 0s linear 1.4s;
+}
+.home-hero-slide.is-active { opacity: 1; visibility: visible; transition-delay: 0s; }
+.home-hero-slide img { width: 100%; height: 100%; object-fit: cover; object-position: var(--focus, 50% 0%); transform-origin: var(--focus, 50% 0%); }
+.home-hero-slide.is-active img { animation: hero-zoom-in 9s linear forwards; }
+.home-hero.is-paused .home-hero-slide img { animation-play-state: paused; }
+.home-hero-media::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(19, 30, 43, .42) 0%, rgba(19, 30, 43, .18) 32%, rgba(19, 30, 43, .62) 62%, rgba(19, 30, 43, .9) 100%),
+    linear-gradient(90deg, rgba(19, 30, 43, .62) 0%, rgba(19, 30, 43, 0) 72%);
+}
+.home-hero-inner {
+  position: relative;
+  display: grid; gap: var(--s-xl) var(--gutter);
+  padding-top: calc(var(--header-h) + var(--s-2xl));
+  padding-bottom: 5rem;
+}
+.home-hero .overline { color: rgba(250, 248, 245, .86); }
+.home-hero h1 {
+  max-width: 11.5em;
+  font-size: clamp(2.6rem, 1.5rem + 4.6vw, 5.4rem); line-height: .98; letter-spacing: -.035em;
+  text-wrap: balance;
+}
+.home-hero h1 em { font-style: italic; font-weight: 400; color: #F3D2C6; }
+.home-hero .lede { max-width: 35rem; color: rgba(250, 248, 245, .9); }
+.home-hero .btn-row { margin-top: var(--s-lg); }
+
+.hero-facts {
+  align-self: end;
+  padding: 1.15rem 1.25rem 1.2rem;
+  background: rgba(19, 30, 43, .5);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1); backdrop-filter: blur(14px) saturate(1.1);
+  border: 1px solid rgba(250, 248, 245, .26); border-radius: var(--r-xl);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .28);
+}
+.hero-facts h2 { font-family: var(--font-body); font-size: var(--label-sm); font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: rgba(250, 248, 245, .74); }
+.hero-facts dl { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem 1.25rem; margin: .8rem 0 0; }
+.hero-facts dt { font-size: var(--label-sm); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #F0C987; }
+.hero-facts dd { margin: .2rem 0 0; font-family: var(--font-display); font-size: var(--headline-sm); line-height: 1.25; color: var(--stone-parchment); }
+.hero-facts .wide { grid-column: 1 / -1; }
+.hero-facts .nowrap { white-space: nowrap; }
+.hero-facts .link-arrow { margin-top: 1rem; color: var(--stone-parchment); text-decoration: underline; text-decoration-color: var(--terracotta); text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
+@media (min-width: 1024px) {
+  .home-hero-inner { grid-template-columns: 7fr minmax(19rem, 4fr); align-items: end; }
+}
+
+.hero-toggle {
+  position: absolute; right: var(--margin); bottom: 1.1rem; z-index: 3;
+  display: inline-flex; align-items: center; gap: .5rem;
+  min-height: 2.75rem; padding: .4rem .9rem .4rem .55rem;
+  border: 1px solid rgba(250, 248, 245, .45); border-radius: var(--r-full);
+  background: rgba(19, 30, 43, .45); color: var(--stone-parchment);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  font-size: var(--label-md); font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  transition: background var(--dur-fast), border-color var(--dur-fast);
+}
+.hero-toggle:hover { background: rgba(19, 30, 43, .7); border-color: var(--stone-parchment); }
+.hero-toggle svg { width: 1.6rem; height: 1.6rem; }
+.hero-toggle .icon-play { display: none; }
+.home-hero.is-paused .hero-toggle .icon-play { display: block; }
+.home-hero.is-paused .hero-toggle .icon-pause { display: none; }
+html:not(.js) .hero-toggle { display: none; }
+
+/* ===== Mission band: real photos in the parish word-light section ===== */
+img.mission-image { height: auto; }
+.mission-copy h2 { width: min(16em, 80vw); font-size: clamp(2.1rem, 3.4vw, 3.9rem); }
+
+/* ===== Programs by age ===== */
+.age-grid { display: grid; gap: var(--gutter); margin-top: var(--s-xl); }
+@media (min-width: 820px) { .age-grid { grid-template-columns: repeat(3, 1fr); } }
+.age-card {
+  position: relative; display: flex; flex-direction: column; overflow: hidden;
+  background: var(--card-bg); border: 1px solid var(--card-border); border-radius: var(--r-xl);
+  transition: border-color var(--dur-fast), box-shadow var(--dur) var(--ease-out);
+}
+.age-card-media { aspect-ratio: 4 / 3; overflow: hidden; background: var(--stone-linen); }
+.age-card-media img { width: 100%; height: 100%; object-fit: cover; object-position: var(--focus, 50% 0%); transform-origin: var(--focus, 50% 0%); transition: transform .7s var(--ease-out); }
+.age-card-body { display: flex; flex: 1; flex-direction: column; gap: .55rem; padding: 1.3rem 1.4rem 1.5rem; }
+.age-badge {
+  align-self: flex-start; padding: .3rem .7rem; border-radius: var(--r-full);
+  background: var(--sun-soft); color: var(--sun-ink);
+  font-size: var(--label-sm); font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+}
+.age-card h3 { font-size: var(--headline-md); line-height: 1.2; color: var(--navy); }
+.age-card p { font-size: var(--body-md); line-height: 1.6; color: var(--on-surface-variant); }
+.age-card .meta { font-size: var(--label-md); font-weight: 700; letter-spacing: .02em; color: var(--sage-moss); }
+.age-card .cue { margin-top: auto; padding-top: .4rem; font-size: var(--body-md); font-weight: 600; color: var(--terracotta-deep); }
+.age-card:focus-within { outline: 2px solid var(--terracotta); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .age-card:hover { border-color: var(--outline-variant); box-shadow: var(--shadow-float); }
+  .age-card:hover .age-card-media img { transform: scale(1.04); }
+  .age-card:hover .cue { text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
+}
+.section-head-row { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--s-md) var(--s-xl); }
+
+/* ===== Enrichment fan: the parish poster fan, with photos ===== */
+.event-poster img.card-media { width: 100%; height: 100%; object-fit: cover; object-position: var(--focus, 50% 0%); }
+.events-scroll .events-intro .copy { margin-inline: auto; }
+/* Five cards, all of them important: keep the whole fan on screen. */
+@media (min-width: 768px) {
+  .events-scroll .event-stack { width: min(100vw - 2 * var(--margin), 78rem); }
+  .events-scroll .event-poster { width: clamp(12rem, 17.5vw, 16.75rem); }
+}
+
+/* ===== Outdoor classroom ===== */
+.outdoor-grid { display: grid; gap: var(--s-xl) calc(var(--gutter) * 2); align-items: center; }
+@media (min-width: 1024px) { .outdoor-grid { grid-template-columns: 6fr 5fr; } }
+.mosaic { display: grid; grid-template-columns: 1.2fr 1fr; grid-template-rows: 1fr 1fr; gap: var(--gutter); aspect-ratio: 1 / 1; }
+.mosaic img { width: 100%; height: 100%; min-height: 0; object-fit: cover; border-radius: var(--r-xl); box-shadow: var(--shadow-float); }
+.mosaic img:first-child { grid-row: 1 / span 2; }
+@media (min-width: 1024px) { .mosaic { aspect-ratio: 6 / 5; } }
+
+/* ===== Parent stories (YouTube loads only when played) ===== */
+.video-grid { display: grid; gap: var(--s-lg) var(--gutter); margin-top: var(--s-xl); }
+@media (min-width: 768px) { .video-grid { grid-template-columns: repeat(3, 1fr); } }
+.video-card { display: flex; flex-direction: column; gap: .8rem; }
+.video-frame { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--r-xl); background: var(--navy-deep); box-shadow: var(--shadow-float); }
+.video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.video-play { position: absolute; inset: 0; display: block; color: var(--stone-parchment); text-decoration: none; }
+.video-play img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease-out); }
+.video-play::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(19, 30, 43, 0) 40%, rgba(19, 30, 43, .55)); }
+.video-play-icon {
+  position: absolute; left: 50%; top: 50%; z-index: 1; translate: -50% -50%;
+  display: grid; place-items: center; width: 4rem; height: 4rem;
+  border: 1.5px solid rgba(250, 248, 245, .85); border-radius: 50%;
+  background: rgba(19, 30, 43, .62);
+  transition: background var(--dur-fast), transform var(--dur-fast);
+}
+.video-play-icon svg { width: 1.4rem; height: 1.4rem; margin-left: .2rem; fill: currentColor; }
+.video-play:hover .video-play-icon, .video-play:focus-visible .video-play-icon { background: var(--terracotta); transform: scale(1.06); }
+@media (hover: hover) and (pointer: fine) { .video-play:hover img { transform: scale(1.03); } }
+.video-card h3 { font-size: var(--headline-sm); font-weight: 600; color: var(--navy); }
+.video-card p { font-size: var(--body-md); line-height: 1.6; color: var(--on-surface-variant); }
+
+/* ===== Tour band (the parish "Join us" section, retold for visits) ===== */
+.tour-steps { display: grid; gap: var(--gutter); max-width: 56rem; margin: var(--s-xl) auto 0; text-align: left; counter-reset: step; }
+@media (min-width: 768px) { .tour-steps { grid-template-columns: repeat(3, 1fr); } }
+.tour-steps li { position: relative; padding: 1.2rem 1.25rem 1.3rem; background: rgba(250, 248, 245, .86); border: 1px solid var(--warm-border); border-radius: var(--r-lg); box-shadow: var(--shadow-float); }
+.tour-steps li::before {
+  counter-increment: step; content: counter(step);
+  display: grid; place-items: center; width: 2.1rem; height: 2.1rem; margin-bottom: .7rem;
+  border-radius: 50%; background: var(--navy); color: var(--stone-parchment);
+  font-family: var(--font-display); font-size: 1.1rem;
+}
+.tour-steps strong { display: block; font-family: var(--font-display); font-size: var(--headline-sm); font-weight: 500; color: var(--navy); }
+.tour-steps span { display: block; margin-top: .3rem; font-size: var(--body-md); line-height: 1.55; color: var(--on-surface-variant); }
+.sunday-times a:hover { border-color: var(--terracotta); transform: translateY(-2px); }
+.sunday-times strong { word-break: break-word; }
+.sunday-times .small { font-size: var(--body-lg); font-family: var(--font-body); font-weight: 700; }
+
+/* ===== Inner pages ===== */
+.steps { display: grid; gap: 1.1rem; margin-top: var(--s-lg); counter-reset: step; }
+.steps li { position: relative; padding-left: 3.1rem; }
+.steps li::before {
+  counter-increment: step; content: counter(step);
+  position: absolute; left: 0; top: -.1rem;
+  display: grid; place-items: center; width: 2.2rem; height: 2.2rem;
+  border-radius: 50%; background: var(--navy); color: var(--stone-parchment);
+  font-family: var(--font-display); font-size: 1.1rem;
+}
+.steps strong { display: block; color: var(--on-surface); }
+
+.price-grid { display: grid; gap: var(--gutter); margin-top: var(--s-lg); }
+@media (min-width: 768px) { .price-grid { grid-template-columns: 1fr 1fr; } }
+.price-card { padding: 1.4rem 1.5rem 1.5rem; background: var(--card-bg); border: 1px solid var(--card-border); border-top: 3px solid var(--terracotta); border-radius: var(--r-lg); }
+.price-card .eyebrow { color: var(--terracotta-deep); }
+.price-card h3 { margin-top: .25rem; font-size: var(--headline-sm); color: var(--navy); }
+.price { margin-top: .7rem; font-family: var(--font-display); font-size: var(--headline-xl); line-height: 1; color: var(--navy); }
+.price small { font-family: var(--font-body); font-size: var(--body-md); color: var(--on-surface-variant); }
+.price-card dl { display: grid; gap: .45rem; margin: 1rem 0 0; padding-top: 1rem; border-top: 1px solid var(--warm-border); font-size: var(--body-md); }
+.price-card dl div { display: flex; justify-content: space-between; gap: 1rem; }
+.price-card dt { color: var(--on-surface-variant); }
+.price-card dd { margin: 0; font-weight: 700; color: var(--on-surface); text-align: right; }
+
+.director { display: grid; gap: var(--s-md) var(--s-lg); align-items: start; }
+.director-photo { width: 7.5rem; aspect-ratio: 1; border-radius: 50%; object-fit: cover; box-shadow: var(--shadow-float); }
+@media (min-width: 640px) { .director { grid-template-columns: 7.5rem 1fr; } }
+.signature { margin-top: 1.25rem; font-family: var(--font-display); font-size: var(--headline-sm); font-style: italic; color: var(--navy); }
+.signature span { display: block; margin-top: .2rem; font-family: var(--font-body); font-size: var(--body-md); font-style: normal; color: var(--on-surface-variant); }
+
+img.person-photo { width: 4.5rem; height: 4.5rem; object-fit: cover; background: var(--stone-linen); }
+.person a { font-weight: 600; color: var(--terracotta-deep); word-break: break-word; }
+
+.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: var(--gutter); margin-top: var(--s-lg); }
+.gallery img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: var(--r-lg); }
+
+.callout { margin-top: var(--s-lg); padding: 1.2rem 1.35rem; background: var(--sun-soft); border-radius: var(--r-lg); color: var(--on-surface); }
+.callout p + p { margin-top: .5rem; }
+
+.next-band .band-inner h2 { color: var(--stone-parchment); }
+.next-band .btn-row { margin-top: 0; }
+.next-band .btn-ghost { --btn-bg: transparent; --btn-fg: var(--stone-parchment); --btn-bd: rgba(250, 248, 245, .7); }
+.next-band .btn-ghost:hover { --btn-bg: rgba(250, 248, 245, .12); --btn-bd: var(--stone-parchment); }
+
+/* Phones: the hero card sits under the copy, still on the dark ground. */
+@media (max-width: 767px) {
+  .home-hero { min-height: 0; }
+  .home-hero-inner { padding-top: calc(var(--header-h) + 9rem); padding-bottom: 4.75rem; }
+  .home-hero-media::after {
+    background: linear-gradient(180deg, rgba(19, 30, 43, .35) 0%, rgba(19, 30, 43, .55) 40%, rgba(19, 30, 43, .92) 72%, var(--navy-deep) 100%);
+  }
+  .hero-facts dd { font-size: var(--body-lg); }
+  .hero-toggle { bottom: .9rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero-slide, .home-hero-slide img { transition: none; animation: none !important; }
+  .age-card-media img, .video-play img { transition: none; }
+  .age-card:hover .age-card-media img, .video-play:hover img { transform: none; }
+}
+
+/* Small label headings inside prose (h3 for document order, styled like the parish h4). */
+.prose h3.sub {
+  margin-top: 1.6rem; font-family: var(--font-body); font-size: var(--label-sm); font-weight: 700;
+  letter-spacing: .09em; text-transform: uppercase; color: var(--terracotta-deep);
+}
+.prose > h3.sub:first-child { margin-top: 0; }
+.prose h3.sub + p, .prose h3.sub + ul { margin-top: .5rem; }

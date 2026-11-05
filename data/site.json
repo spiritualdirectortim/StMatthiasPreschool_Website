@@ -1,0 +1,106 @@
+{
+  "_readme": "Shared preschool facts, navigation and footer. Edit, then run: python3 scripts/build.py. Only verified facts belong here; open questions go in docs/needs-preschool-confirmation.md.",
+  "school": {
+    "name": "St. Matthias Preschool",
+    "tagline": "A ministry of St. Matthias Parish",
+    "street": "533 Canyon Road",
+    "city": "Redwood City",
+    "region": "CA",
+    "postalCode": "94062",
+    "phone": "(650) 367-1320",
+    "phoneHref": "tel:+16503671320",
+    "email": "rosemary@stmatthiasparish.org",
+    "officeEmail": "smpsoffice@stmatthiasparish.org",
+    "director": "Rosemary Juarez-Gomez",
+    "days": "Monday–Friday",
+    "hours": "7:30 a.m.–5:30 p.m.",
+    "ages": "Ages 2–5",
+    "directionsUrl": "https://www.google.com/maps/dir/?api=1&destination=533+Canyon+Road,+Redwood+City,+CA+94062",
+    "parishUrl": "https://www.stmatthiasparish.org/",
+    "tourHref": "/admissions/#tour"
+  },
+  "nav": [
+    {
+      "id": "about",
+      "label": "About Us",
+      "href": "/about/",
+      "children": [
+        { "label": "Mission & Approach", "href": "/about/#mission" },
+        { "label": "Welcome from the Director", "href": "/about/#director" },
+        { "label": "Teachers & Staff", "href": "/about/#teachers" },
+        { "label": "Part of St. Matthias Parish", "href": "/about/#parish" },
+        { "label": "Contact Us", "href": "/about/#contact" }
+      ]
+    },
+    {
+      "id": "programs",
+      "label": "Programs",
+      "href": "/programs/",
+      "children": [
+        { "label": "How Children Learn Here", "href": "/programs/#approach" },
+        { "label": "Toddlers, Age 2", "href": "/programs/#toddlers" },
+        { "label": "Preschool, Ages 3–4", "href": "/programs/#preschool" },
+        { "label": "Pre-Kindergarten", "href": "/programs/#pre-k" },
+        { "label": "Toilet Training", "href": "/programs/#toilet-training" },
+        { "label": "Outdoor Classroom", "href": "/programs/#outdoors" }
+      ]
+    },
+    {
+      "id": "enrichment",
+      "label": "Enrichment",
+      "href": "/enrichment/",
+      "children": [
+        { "label": "Music & Movement", "href": "/enrichment/#music-movement" },
+        { "label": "STEM with Bricks 4 Kidz", "href": "/enrichment/#stem" },
+        { "label": "Spanish", "href": "/enrichment/#spanish" },
+        { "label": "Gardening", "href": "/enrichment/#gardening" },
+        { "label": "Faith & Values", "href": "/enrichment/#faith" }
+      ]
+    },
+    {
+      "id": "admissions",
+      "label": "Admissions",
+      "href": "/admissions/",
+      "children": [
+        { "label": "Schedule a Tour", "href": "/admissions/#tour" },
+        { "label": "Tuition & Hours", "href": "/admissions/#tuition" },
+        { "label": "How to Enroll", "href": "/admissions/#enroll" },
+        { "label": "Questions Parents Ask", "href": "/admissions/#faq" },
+        { "label": "After Preschool", "href": "/admissions/#after-preschool" }
+      ]
+    },
+    {
+      "id": "families",
+      "label": "Families",
+      "href": "/families/",
+      "children": [
+        { "label": "Parent Stories", "href": "/families/#stories" },
+        { "label": "Staying in Touch", "href": "/families/#staying-in-touch" },
+        { "label": "Family Events", "href": "/families/#events" },
+        { "label": "Parent Workshops", "href": "/families/#workshops" }
+      ]
+    },
+    {
+      "id": "tour",
+      "label": "Schedule a Tour",
+      "href": "/admissions/#tour",
+      "style": "cta"
+    },
+    {
+      "id": "parish",
+      "label": "St. Matthias Parish",
+      "href": "https://www.stmatthiasparish.org/",
+      "style": "external"
+    }
+  ],
+  "footer": {
+    "explore": ["about", "programs", "enrichment", "admissions", "families"],
+    "takeAction": [
+      { "label": "Schedule a Tour", "href": "/admissions/#tour" },
+      { "label": "Tuition & Hours", "href": "/admissions/#tuition" },
+      { "label": "St. Matthias Parish", "href": "https://www.stmatthiasparish.org/", "external": true },
+      { "label": "St. Charles School (K–8)", "href": "https://www.stcharlesschoolsc.org/", "external": true },
+      { "label": "Privacy Policy", "href": "/privacy/" }
+    ]
+  }
+}
