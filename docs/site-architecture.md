@@ -59,7 +59,9 @@ Page body copy (tuition, programs, staff) lives in each page's HTML.
 - `docs/source-images/`: every image downloaded from the live site, untouched, plus `_manifest.tsv` (original URL for each file). Not published.
 - `images/photos/`, `images/staff/`: resized web copies (JPEG, at most 1440 px for the hero and 1000 px elsewhere). Every `<img>` has `alt`, `width` and `height`; everything below the hero loads lazily.
 - Crops are anchored to the top of each photo (`object-position: 50% 0%` by default, tuned per photo) so no head is cut off at the top at any screen width, and the home hero's photos start below the header bar. The 4:1 banner crops from the old homepage slideshow were not used, because their faces are already cut off at the top. Phone and tablet page heroes use 4:3 instead of 16:9 so portrait photos keep more height.
-- Flyers with past dates (2024–2025 event invitations, a February 2025 Spanish word list) and generic eCatholic stock banners were not reused.
+- Flyers with past dates (2024–2025 event invitations, a February 2025 Spanish word list) and generic eCatholic stock banners were not reused. The Christmas Parent Social photo collage is used in Family Events at its own 16:9 shape, so nothing in it is cropped.
+- The Spanish section uses the circle-time photo as a stand-in (the text says children practice their Spanish words at circle time). Replace it when the preschool has a photo of a Spanish lesson.
+- `images/share/`: one 1200 × 630 link-preview image per page (Privacy reuses the home image), cropped by hand from the originals so no head is cut. Each page's `og:image` tags point to it with a full `https://stmatthiaspreschool.org/` address, because Facebook, iMessage and Slack need a full address. Previews appear only once that domain serves the new site.
 - Parent videos show a local thumbnail. YouTube loads only after a click, through youtube-nocookie.com. Without JavaScript the thumbnail is a normal link to YouTube.
 
 ## 5. Preview locally
