@@ -297,3 +297,9 @@ img.person-photo { width: 4.5rem; height: 4.5rem; object-fit: cover; background:
 }
 .prose > h3.sub:first-child { margin-top: 0; }
 .prose h3.sub + p, .prose h3.sub + ul { margin-top: .5rem; }
+
+/* Home mission band: the full official mission statement is ~60 words, so it sets smaller than the parish's short line. */
+.mission-copy h2.is-long { width: min(30em, 86vw); font-size: clamp(1.55rem, 2.2vw, 2.5rem); line-height: 1.25; }
+@media (max-width: 767px) {
+  .mission-copy h2.is-long { width: 92vw; font-size: clamp(1.35rem, 5.4vw, 1.8rem); }
+}

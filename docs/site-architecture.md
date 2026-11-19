@@ -16,7 +16,7 @@ The site uses the St. Matthias Parish website (`../St_Matthias_Website`) as its 
 | `css/site.css` | Parish, unchanged | Header, dropdowns, drawer, buttons, cards, page hero, page grid, FAQ, footer, mission band, poster fan. |
 | `js/nav.js` | Parish, unchanged | Header scroll state, dropdown menus, mobile drawer. |
 | `css/preschool.css` | Preschool only | Home hero, age cards, video cards, tuition cards, steps, gallery, tour band. Adds one accent (`--sun`, from the preschool logo) for decoration only. |
-| `js/preschool.js` | Adapted from parish `js/motion.js` | Reveals, headline word reveal, mission word-light, enrichment fan, pausable hero crossfade, click-to-play videos. |
+| `js/preschool.js` | Adapted from parish `js/motion.js` | Reveals, headline word reveal, mission word-light, photo flight (mission photos travel down onto the Programs by age cards), enrichment fan, pausable hero crossfade, click-to-play videos. |
 
 Same fonts (Newsreader and Source Sans 3), same navy/terracotta/parchment palette, same header behavior (light over the hero, parchment on scroll), same 1200 px desktop-nav breakpoint. The header and footer carry the preschool's own sun logo (on a white tile, since the logo has a white background and black lettering), and the browser-tab icon is the same logo. The header text reads "St. Matthias Preschool / A ministry of St. Matthias Parish".
 
@@ -75,6 +75,7 @@ Run it from the project folder, then open http://127.0.0.1:8788/. Every route is
 ## 6. Accessibility and motion
 
 - One `<h1>` per page, ordered headings, landmarks, skip link, visible focus.
+- Photo flight (from the parish homepage, where five mission photos land on the Upcoming events cards): on the preschool homepage three mission photos (flashlight reading, chalk wall, playhouse) lift off as the mission band scrolls away and land on the Toddlers, Preschool and Pre-K cards, then crossfade into each card's own photo. Desktop (768 px and up) only; phones and reduced motion show the cards as normal. Markup: the `data-ministry-flight` layer above the mission band in `index.html`; each tile's `data-flight-from` names the mission photo it starts on.
 - The hero photo crossfade has a visible Pause/Play button, stops when the hero is off-screen or the tab is hidden, and does not run under `prefers-reduced-motion`. The mission word-light and enrichment fan show their finished state on phones and under reduced motion.
 - Tested at 375 px (no horizontal scroll, 17 px body text) and 1440 px. Automated audit: 0 broken internal links or anchors; all 7 external links return 200.
 

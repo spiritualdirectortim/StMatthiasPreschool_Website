@@ -1,13 +1,13 @@
 # St. Matthias Preschool website: items to confirm
 
-Updated: 2026-11-05
+Updated: 2026-11-18
 Every fact on the new site comes from the live site (stmatthiaspreschool.org, captured 2026-11-05 into `docs/source-content/`) or the parish website. Nothing was invented. These items need a decision or a fact from the preschool before launch.
 
 ## A. Wording that speaks for a person or the school
 
-1. **Director's name.** The faculty page says "Mrs. Rosemary Juarez-Gomez"; her letter and the parish site say "Rosemary Juarez". The new site uses **Rosemary Juarez-Gomez** everywhere. Confirm which she prefers.
-2. **Director's letter** (`/about/#director`) was tightened in her voice. She should read and approve it.
-3. **Mission statement** (`/about/#mission`) was shortened from one 60-word sentence. Confirm the new wording, or restore the official text if the board approved it word for word.
+1. **Director's name.** The faculty page says "Mrs. Rosemary Juarez-Gomez"; her letter and the parish site say "Rosemary Juarez". Since 2026-11-18 the new site follows the old site exactly: the letter is signed "Rosemary Juarez", the staff card and contact details say "Rosemary Juarez-Gomez". Confirm which she prefers.
+2. **Body copy now matches the live site.** On 2026-11-18, at Rose's request, every section with a counterpart on stmatthiaspreschool.org was replaced with the live site's exact wording (director's letter, mission and philosophy, curriculum, each age group, toilet training, outdoor learning, every enrichment page, St. Charles, parent testimonials, communication, parent in-services, staff titles). Only obvious misspellings were fixed ("Spirtually", "experienc", "Old's", "social- emotional"). Headlines, short intro lines, homepage card blurbs, the tour steps, How to Enroll and the Admissions FAQ have no counterpart on the old site and were kept as written for the new site; Rose may want to review those.
+3. **Mission statement.** The homepage band and `/about/#mission` now use the official 60-word statement word for word.
 4. **"Is the preschool only for Catholic families?"** (Admissions FAQ). The answer leans on the director's "where all are welcome." Confirm the actual admissions policy.
 
 ## B. Facts the live site does not state (common parent questions)
@@ -15,7 +15,7 @@ Every fact on the new site comes from the live site (stmatthiaspreschool.org, ca
 5. **Ages and placement.** Preschool is shown as ages 3–4 (Ms. Jill's title) and pre-K as "the year before kindergarten." Confirm age cutoffs and birthday rules.
 6. **Toilet training for ages 3+.** The toddler policy is clear. Are older children required to be toilet-trained?
 7. **Enrichment schedule and cost.** How often are Music & Movement, Spanish and gardening? Are they included in tuition? Who leads toddler STEM (Bricks 4 Kidz or teachers)?
-8. **School-year calendar.** The live calendar has no events. Add closure dates and holidays; the site currently tells parents to ask on the tour.
+8. **School-year calendar.** On 2026-11-05 the live calendar had no events; on 2026-11-18 it listed 37 (Thanksgiving lunch and closures, the Dec. 2 Family Christmas Show, and more). The new site has no calendar yet and tells parents to ask on the tour. Decide whether to link a shared calendar (Google Calendar or the iCal feed) rather than copying dated events into the page.
 9. **License number, ratios and class sizes.** Parents often look for a California Community Care Licensing number. Add it if the preschool wants it shown.
 10. **Meals.** The site mentions a weekly snack menu only. Is lunch provided or packed?
 11. **Teacher and staff emails.** The live site showed them without "@" and with inconsistent domains (for example "st.matthiasparish.org"). Only rosemary@ and smpsoffice@ are published.

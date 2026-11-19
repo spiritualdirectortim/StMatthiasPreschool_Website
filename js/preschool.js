@@ -1,6 +1,6 @@
 // Motion and small behaviors for the St. Matthias Preschool site.
 // Adapted from the parish site's js/motion.js: same reveal, word-split,
-// word-light and poster-fan vocabulary, plus a pausable hero photo crossfade
+// word-light, photo-flight and poster-fan vocabulary, plus a pausable hero photo crossfade
 // and click-to-play parent videos. Every effect has a static fallback and
 // respects prefers-reduced-motion. No dependencies.
 (function () {
@@ -150,10 +150,110 @@
     });
   }
 
+  // ----- Photo flight (from the parish motion.js updateMinistryFlight):
+  // as the mission band scrolls away, three of its photos lift off, travel
+  // down the page and land on the three Programs by age cards, then crossfade
+  // into each card's own photo. Flight tile n starts on the mission photo
+  // named by its data-flight-from and lands on age card n.
+  var flightLayer = document.querySelector("[data-ministry-flight]");
+  var flightImages = flightLayer ? Array.prototype.slice.call(flightLayer.querySelectorAll("[data-flight-image]")) : [];
+  var flightSources = flightImages.map(function (img) { return document.querySelector(img.getAttribute("data-flight-from")); });
+  var flightTargets = Array.prototype.slice.call(document.querySelectorAll("#programs .age-card-media img"));
+  var flightReady = !!(flightLayer && wordSection && flightTargets.length && flightSources.every(Boolean));
+
+  // Where a mission photo sits once the band has scrolled to the top of the
+  // screen (the moment the flight begins): its untransformed box and tilt.
+  function flightStart(img, missionRect, missionTravel) {
+    var r = img.getBoundingClientRect();
+    var w = img.offsetWidth;
+    var h = img.offsetHeight;
+    var tilt = parseFloat(getComputedStyle(img).getPropertyValue("--tilt")) || 0;
+    return {
+      x: r.left + r.width / 2 - w / 2,
+      y: r.top - missionRect.top - missionTravel + r.height / 2 - h / 2,
+      w: w, h: h, r: tilt
+    };
+  }
+
+  // Mid-air stops, as on the parish site: one out to each side, one high in the middle.
+  function flightWaypoints(vw, vh) {
+    var width = Math.min(240, Math.max(136, vw * .17));
+    var sideWidth = Math.min(vw * .29, width * 1.55);
+    var sideHeight = sideWidth * .66;
+    var smallWidth = width * .92;
+    var smallHeight = smallWidth * .75;
+    return [
+      { x: -sideWidth * .20, y: vh * .50, w: sideWidth, h: sideHeight, r: 2 },
+      { x: (vw - smallWidth) / 2, y: vh * .08, w: smallWidth, h: smallHeight, r: 1 },
+      { x: vw - sideWidth * .80, y: vh * .47, w: sideWidth, h: sideHeight, r: -2 }
+    ];
+  }
+
+  function updateFlight(vw, vh) {
+    if (!flightReady) return;
+    var scrollY = window.scrollY || window.pageYOffset;
+    var missionRect = wordSection.getBoundingClientRect();
+    var missionTop = scrollY + missionRect.top;
+    var missionTravel = Math.max(1, missionRect.height - vh);
+    var motionStart = missionTop + missionTravel;
+    // Land when the cards' photos sit in the middle of the screen.
+    var cardsTop = scrollY + flightTargets[0].getBoundingClientRect().top;
+    var motionEnd = Math.max(motionStart + vh * .5, cardsTop - vh * .45);
+    var raw = clamp01((scrollY - motionStart) / Math.max(1, motionEnd - motionStart));
+    var inJourney = scrollY >= motionStart && scrollY < motionEnd + vh * .08;
+    var waypoints = flightWaypoints(vw, vh);
+    var firstLeg = ease(raw / .70);
+    var secondLeg = ease((raw - .70) / .30);
+    var crossfade = ease((raw - .975) / .025);
+
+    flightLayer.style.visibility = inJourney ? "visible" : "hidden";
+    flightSources.forEach(function (img) { img.style.visibility = inJourney ? "hidden" : "visible"; });
+
+    flightImages.forEach(function (image, i) {
+      if (i >= flightTargets.length) { image.style.display = "none"; return; }
+      image.style.display = "";
+      var start = flightStart(flightSources[i], missionRect, missionTravel);
+      var waypoint = waypoints[i % waypoints.length];
+      var tr = flightTargets[i].getBoundingClientRect();
+      var target = {
+        x: tr.left,
+        y: Math.min(tr.top, vh - Math.min(tr.height, waypoint.h) * .45),
+        w: tr.width, h: tr.height, r: 0
+      };
+      var from = raw < .70 ? start : waypoint;
+      var to = raw < .70 ? waypoint : target;
+      var t = raw < .70 ? firstLeg : secondLeg;
+      image.style.left = lerp(from.x, to.x, t) + "px";
+      image.style.top = lerp(from.y, to.y, t) + "px";
+      image.style.width = lerp(from.w, to.w, t) + "px";
+      image.style.height = lerp(from.h, to.h, t) + "px";
+      image.style.opacity = String(1 - crossfade);
+      image.style.transform = "rotate(" + lerp(from.r, to.r, t) + "deg)";
+      image.style.borderRadius = lerp(24, 16, raw) + "px";
+      flightTargets[i].style.opacity = String(crossfade);
+    });
+  }
+
+  function resetFlight() {
+    if (!flightReady) return;
+    flightLayer.style.visibility = "hidden";
+    flightSources.forEach(function (img) { img.style.visibility = ""; });
+    flightTargets.forEach(function (img) { img.style.opacity = ""; });
+  }
+
+  // The flight places the cards itself, so the grid skips its fade-up reveal
+  // whenever the flight runs (phones and reduced motion keep the reveal).
+  function syncFlightReveal() {
+    if (!flightReady) return;
+    var grid = flightTargets[0].closest("[data-reveal-stagger]");
+    if (grid && desktop.matches && !reduce.matches) grid.classList.add("is-in");
+  }
+
   function update() {
     ticking = false;
     var vh = window.innerHeight;
     if (!desktop.matches || reduce.matches) {
+      resetFlight();
       missionWords.forEach(function (w) { w.style.removeProperty("--word-light"); w.classList.add("is-lit"); });
       if (fanSection) {
         fanSection.style.setProperty("--p", 1);
@@ -175,6 +275,8 @@
       fanSection.style.setProperty("--p", fp.toFixed(4));
       animateFan(fanSection, fp);
     }
+    syncFlightReveal();
+    updateFlight(window.innerWidth, vh);
   }
   function requestUpdate() {
     if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
