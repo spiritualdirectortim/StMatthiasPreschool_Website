@@ -210,9 +210,15 @@ figure { margin: 0; }
 .home-hero.is-paused .home-hero-slide img { animation-play-state: paused; }
 .home-hero-media::after {
   content: ""; position: absolute; inset: 0;
-  background:
-    linear-gradient(180deg, rgba(247, 246, 242, .5) 0%, rgba(247, 246, 242, .3) 32%, rgba(247, 246, 242, .7) 62%, rgba(247, 246, 242, .92) 100%),
-    linear-gradient(90deg, rgba(247, 246, 242, .85) 0%, rgba(247, 246, 242, .55) 45%, rgba(247, 246, 242, 0) 72%);
+  /* Clear photo at the top, feathering into off-white just above the text and staying
+     nearly solid behind it. --hero-solid (distance from the bottom up to just above the
+     first line of text) is measured by js/preschool.js; 55% is the no-JS fallback. */
+  background: linear-gradient(to top,
+    rgba(247, 246, 242, .95) 0,
+    rgba(247, 246, 242, .9) var(--hero-solid, 55%),
+    rgba(247, 246, 242, .55) calc(var(--hero-solid, 55%) + 90px),
+    rgba(247, 246, 242, .18) calc(var(--hero-solid, 55%) + 190px),
+    rgba(247, 246, 242, 0) calc(var(--hero-solid, 55%) + 260px));
 }
 .home-hero-inner {
   position: relative;
@@ -248,9 +254,8 @@ figure { margin: 0; }
    bottom, level with Schedule a Tour / See Programs by Age and flush right with the box. */
 .hero-side { display: flex; flex-direction: column; align-items: flex-end; gap: var(--s-md); }
 .hero-side .hero-facts { align-self: stretch; }
-/* From tablet up, the headline lines and the right column share one grid: the box
-   spans the overline, headline and subtitle rows (top level with the overline, bottom
-   level with the subtitle's last line); the pause button shares the buttons' row. */
+/* From tablet up, the headline lines and the right column share one grid: the box ends
+   level with the subtitle's last line; the pause button shares the buttons' row. */
 @media (min-width: 768px) {
   .home-hero-inner { grid-template-columns: minmax(0, 1fr) auto; grid-auto-rows: auto; row-gap: 0; column-gap: var(--s-xl); }
   .hero-copy, .hero-side { display: contents; }
@@ -259,11 +264,13 @@ figure { margin: 0; }
   .hero-copy > h1 { grid-row: 2; }
   .hero-copy > .lede { grid-row: 3; }
   .hero-copy > .btn-row { grid-row: 4; }
+  /* Box is only as tall as its contents (the link sits ~46px under the address) and its
+     bottom lines up with the last line of the subtitle. */
   .hero-side .hero-facts {
-    grid-column: 2; grid-row: 1 / 4; align-self: stretch; width: 17.5rem;
+    grid-column: 2; grid-row: 1 / 4; align-self: end; width: 17.5rem;
     display: flex; flex-direction: column;
   }
-  .hero-side .hero-facts .link-arrow { margin-top: auto; padding-top: .75rem; align-self: flex-start; }
+  .hero-side .hero-facts .link-arrow { margin-top: 2.85rem; align-self: flex-start; }
   .hero-side .hero-toggle { grid-column: 2; grid-row: 4; justify-self: end; align-self: end; }
 }
 
@@ -423,9 +430,6 @@ img.person-photo { width: 4.5rem; height: 4.5rem; object-fit: cover; background:
 @media (max-width: 767px) {
   .home-hero { min-height: 0; }
   .home-hero-inner { padding-top: calc(var(--header-h) + 9rem); padding-bottom: 4.75rem; }
-  .home-hero-media::after {
-    background: linear-gradient(180deg, rgba(247, 246, 242, .35) 0%, rgba(247, 246, 242, .78) 22%, rgba(247, 246, 242, .88) 45%, rgba(247, 246, 242, .95) 72%, #F7F6F2 100%);
-  }
   .hero-facts dd { font-size: var(--body-lg); }
 }
 
@@ -445,6 +449,51 @@ img.person-photo { width: 4.5rem; height: 4.5rem; object-fit: cover; background:
 
 /* Home mission band: the full official mission statement is ~60 words, so it sets smaller than the parish's short line. */
 .mission-copy h2.is-long { width: min(30em, 86vw); font-size: clamp(1.55rem, 2.2vw, 2.5rem); line-height: 1.25; }
+/* Keep every word clear of the photos: the text sits in a center column, and the photos
+   (each at most 10vw - 40px + one photo width in from the edge) stay in the side margins. */
+@media (min-width: 768px) {
+  .mission-copy { --mission-col: calc(100vw - 2 * (10vw - 40px + clamp(8.5rem, 17vw, 15rem) + 1.75rem)); }
+  .mission-copy h2.is-long { width: min(30em, var(--mission-col)); }
+  .mission-copy > .mission-support { max-width: min(43rem, var(--mission-col)); }
+  .mission-links { max-width: var(--mission-col); margin-inline: auto; }
+}
+/* Mission band sized to its content (not a full screen), so there is no tall empty band
+   above "Our mission". Top photos sit beside the start of the statement, bottom photos near
+   the bottom edge. The photo flight reads these positions, so it starts from wherever they are. */
+@media (min-width: 768px) {
+  .mission-scroll { height: auto; }
+  .mission-sticky { height: auto; min-height: 0; padding-block: 4.5rem 5rem; }
+  .mission-copy { position: relative; inset: auto; min-height: 0; }
+  .mission-image.mi-1 { top: 7rem; }
+  .mission-image.mi-2 { top: 8rem; }
+  .mission-image.mi-3 { bottom: 2.25rem; }
+  .mission-image.mi-4 { bottom: 1.5rem; }
+}
+@media (max-width: 767px) {
+  .mission-sticky { min-height: 0; padding-block: 4rem; }
+  .mission-copy { min-height: 0; }
+  .mission-images { margin-bottom: var(--s-xl); }
+  .mission-image:last-child { grid-column: auto; width: 100%; }  /* four photos: a 2 × 2 grid */
+}
+/* Home "Outdoor classroom": dark brown ground with light text.
+   On #2A170C: heading #FBFAF6 16.4:1, body #E9DECF 12.9:1, orange label #F9642C 5.6:1. */
+#outdoors { background: var(--navy-deep); color: var(--stone-parchment); }
+#outdoors .overline { color: var(--btn-orange); }
+#outdoors .h-xl { color: var(--stone-parchment); }
+#outdoors .copy { color: #E9DECF; }
+#outdoors .btn-secondary { --btn-fg: var(--stone-parchment); --btn-bd: rgba(251, 250, 246, .7); }
+#outdoors .btn-secondary:hover { --btn-bg: rgba(251, 250, 246, .12); --btn-bd: var(--stone-parchment); }
+
+/* Home: half the gap between Parent stories and Visit us. The gap was two section paddings
+   plus ~28px of card spacing; each padding drops by (padding + 14px) / 2, halving the total. */
+#stories { padding-bottom: calc(var(--section-pad) / 2 - 7px); }
+#visit { padding-top: calc(var(--section-pad) / 2 - 7px); }
+/* Short windows: a little smaller so the narrower column still fits the screen height. */
+@media (min-width: 768px) and (max-height: 700px) {
+  .mission-copy h2.is-long { font-size: clamp(1.2rem, 1.9vw, 1.6rem); }
+  .mission-copy > .mission-support { margin-top: var(--s-md); font-size: var(--body-md); }
+  .mission-copy .mission-links { margin-top: var(--s-md); }
+}
 @media (max-width: 767px) {
   .mission-copy h2.is-long { width: 92vw; font-size: clamp(1.35rem, 5.4vw, 1.8rem); }
 }

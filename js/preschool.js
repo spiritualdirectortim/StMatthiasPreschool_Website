@@ -108,6 +108,21 @@
     reduce.addEventListener && reduce.addEventListener("change", function () { setPlaying(!reduce.matches); });
     show(0);
     setPlaying(playing);
+
+    // Feather point for the photo shading: the shading is clear at the top of the photo
+    // and reaches near-solid just above the first line of text (see .home-hero-media::after).
+    // offsetTop ignores the load animation's transforms, so this is the settled position.
+    var inner = hero.querySelector(".home-hero-inner");
+    var firstLine = hero.querySelector(".home-hero-inner .overline");
+    var setFeather = function () {
+      if (!inner || !firstLine) return;
+      var textTop = inner.offsetTop + firstLine.offsetTop;
+      hero.style.setProperty("--hero-solid", Math.max(0, hero.offsetHeight - textTop + 20) + "px");
+    };
+    setFeather();
+    window.addEventListener("resize", setFeather);
+    window.addEventListener("load", setFeather);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(setFeather);
   }
 
   // ----- Scroll-linked: mission word light and the enrichment poster fan
