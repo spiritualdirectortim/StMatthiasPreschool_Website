@@ -5,11 +5,73 @@
    one warm accent taken from the preschool's sun logo.
    ------------------------------------------------------------------ */
 
+/* Color palette only (after the Joyloo preschool reference): each parish color
+   token is swapped one-for-one for a brighter color in the same role and the
+   same light/dark position, so every element keeps its design and only its
+   hue changes. Text-bearing shades meet WCAG AA (4.5:1). */
 :root {
-  --sun: #E8A33D;          /* decoration only; never text on light backgrounds */
-  --sun-soft: #FCF1DE;
-  --sun-ink: #7A4A0E;      /* text on --sun-soft: 7.9:1 */
+  /* Light surfaces (same lightness as the parish values) */
+  --surface: #FBFAF6;
+  --surface-low: #F7F6F0;
+  --surface-container: #F1EFE8;
+  --surface-high: #ECE9E0;
+  --surface-highest: #E5E1D6;
+  --parchment: #F7F6F0;
+  --stone-parchment: #FBFAF6;
+  --stone-linen: #F1EDE2;
+  --warm-border: #E9E2D3;
+  --outline: #8A7466;
+  --outline-variant: #E3D3C4;
+
+  /* Text */
+  --on-surface: #1B1917;
+  --on-surface-variant: #5A4A40;
+  --charcoal-ink: #1B1917;
+  --inverse-surface: #3B2113;
+  --inverse-on-surface: #FBFAF6;
+
+  /* Terracotta -> bright orange */
+  --terracotta: #C93F0C;        /* 4.6:1 as text on the page and under white text */
+  --terracotta-deep: #A8330A;
+  --terracotta-soft: #FFEDE4;
+  --primary: #A8330A;
+  --primary-container: #C93F0C;
+
+  /* Navy -> chocolate brown */
+  --navy: #3B2113;
+  --navy-deep: #2A170C;
+  --navy-soft: #F6ECE4;
+
+  /* Sage -> green */
+  --sage: #1F8F47;
+  --sage-moss: #1A7F3F;
+  --sage-wash: #E3F6EA;
+  --tertiary: #1A7F3F;
+  --tertiary-container: #1F8F47;
+
+  /* Slate -> sky blue */
+  --secondary: #2F6FB5;
+
+  /* Amber -> sunny yellow */
+  --sun: #FEC93D;          /* decoration only; never text on light backgrounds */
+  --sun-soft: #FFF3C4;
+  --sun-ink: #7A4A0E;      /* text on --sun-soft: 6.7:1 */
+
+  /* Shadows and photo overlays: same strength, brown instead of navy */
+  --shadow-float: 0 12px 32px -4px rgba(59, 33, 19, 0.08), 0 4px 12px -2px rgba(201, 63, 12, 0.04);
+  --shadow-lift: 0 18px 40px -8px rgba(59, 33, 19, 0.14), 0 6px 16px -4px rgba(201, 63, 12, 0.06);
+  --hero-overlay-a: rgba(42, 23, 12, 0.62);
+  --hero-overlay-b: rgba(42, 23, 12, 0.18);
 }
+
+/* Shared parish rules with the old navy or blush written in: same rules, same
+   opacities, new colors only. */
+.drawer-scrim { background: rgba(42, 23, 12, .55); }
+.event-poster { box-shadow: 0 24px 54px rgba(59, 33, 19, .24); }
+.event-poster::after { background: linear-gradient(to bottom, transparent, rgba(42, 23, 12, .93) 64%, var(--navy-deep)); }
+.poster-label { color: #FFD9C7; }
+.page-hero::before { background: radial-gradient(circle at 85% 15%, rgba(201, 63, 12, .28), transparent 55%); }
+.page-hero h1 em { color: #FFD9C7; }
 
 /* ===== Header additions ===== */
 /* The preschool's own sun logo, on a white tile so it reads over photos and parchment alike. */
@@ -18,7 +80,7 @@
   width: 3.55rem; height: 3rem; padding: .18rem .22rem;
   background: #fff; border-radius: var(--r-md);
   object-fit: contain;
-  box-shadow: 0 0 0 1px rgba(31, 48, 68, .08), 0 4px 14px rgba(19, 30, 43, .18);
+  box-shadow: 0 0 0 1px rgba(59, 33, 19, .08), 0 4px 14px rgba(42, 23, 12, .18);
 }
 @media (min-width: 1024px) { .brand .brand-logo { width: 3.9rem; height: 3.3rem; } }
 @media (max-width: 479px) {
@@ -87,8 +149,8 @@ figure { margin: 0; }
 .home-hero-media::after {
   content: ""; position: absolute; inset: 0;
   background:
-    linear-gradient(180deg, rgba(19, 30, 43, .42) 0%, rgba(19, 30, 43, .18) 32%, rgba(19, 30, 43, .62) 62%, rgba(19, 30, 43, .9) 100%),
-    linear-gradient(90deg, rgba(19, 30, 43, .62) 0%, rgba(19, 30, 43, 0) 72%);
+    linear-gradient(180deg, rgba(42, 23, 12, .42) 0%, rgba(42, 23, 12, .18) 32%, rgba(42, 23, 12, .62) 62%, rgba(42, 23, 12, .9) 100%),
+    linear-gradient(90deg, rgba(42, 23, 12, .62) 0%, rgba(42, 23, 12, 0) 72%);
 }
 .home-hero-inner {
   position: relative;
@@ -109,7 +171,7 @@ figure { margin: 0; }
 .hero-facts {
   align-self: end;
   padding: 1.15rem 1.25rem 1.2rem;
-  background: rgba(19, 30, 43, .5);
+  background: rgba(42, 23, 12, .5);
   -webkit-backdrop-filter: blur(14px) saturate(1.1); backdrop-filter: blur(14px) saturate(1.1);
   border: 1px solid rgba(250, 248, 245, .26); border-radius: var(--r-xl);
   box-shadow: 0 24px 60px rgba(0, 0, 0, .28);
@@ -130,12 +192,12 @@ figure { margin: 0; }
   display: inline-flex; align-items: center; gap: .5rem;
   min-height: 2.75rem; padding: .4rem .9rem .4rem .55rem;
   border: 1px solid rgba(250, 248, 245, .45); border-radius: var(--r-full);
-  background: rgba(19, 30, 43, .45); color: var(--stone-parchment);
+  background: rgba(42, 23, 12, .45); color: var(--stone-parchment);
   -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
   font-size: var(--label-md); font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
   transition: background var(--dur-fast), border-color var(--dur-fast);
 }
-.hero-toggle:hover { background: rgba(19, 30, 43, .7); border-color: var(--stone-parchment); }
+.hero-toggle:hover { background: rgba(42, 23, 12, .7); border-color: var(--stone-parchment); }
 .hero-toggle svg { width: 1.6rem; height: 1.6rem; }
 .hero-toggle .icon-play { display: none; }
 .home-hero.is-paused .hero-toggle .icon-play { display: block; }
@@ -199,12 +261,12 @@ img.mission-image { height: auto; }
 .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .video-play { position: absolute; inset: 0; display: block; color: var(--stone-parchment); text-decoration: none; }
 .video-play img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease-out); }
-.video-play::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(19, 30, 43, 0) 40%, rgba(19, 30, 43, .55)); }
+.video-play::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(42, 23, 12, 0) 40%, rgba(42, 23, 12, .55)); }
 .video-play-icon {
   position: absolute; left: 50%; top: 50%; z-index: 1; translate: -50% -50%;
   display: grid; place-items: center; width: 4rem; height: 4rem;
   border: 1.5px solid rgba(250, 248, 245, .85); border-radius: 50%;
-  background: rgba(19, 30, 43, .62);
+  background: rgba(42, 23, 12, .62);
   transition: background var(--dur-fast), transform var(--dur-fast);
 }
 .video-play-icon svg { width: 1.4rem; height: 1.4rem; margin-left: .2rem; fill: currentColor; }
@@ -278,7 +340,7 @@ img.person-photo { width: 4.5rem; height: 4.5rem; object-fit: cover; background:
   .home-hero { min-height: 0; }
   .home-hero-inner { padding-top: calc(var(--header-h) + 9rem); padding-bottom: 4.75rem; }
   .home-hero-media::after {
-    background: linear-gradient(180deg, rgba(19, 30, 43, .35) 0%, rgba(19, 30, 43, .55) 40%, rgba(19, 30, 43, .92) 72%, var(--navy-deep) 100%);
+    background: linear-gradient(180deg, rgba(42, 23, 12, .35) 0%, rgba(42, 23, 12, .55) 40%, rgba(42, 23, 12, .92) 72%, var(--navy-deep) 100%);
   }
   .hero-facts dd { font-size: var(--body-lg); }
   .hero-toggle { bottom: .9rem; }
