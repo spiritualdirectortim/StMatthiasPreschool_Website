@@ -44,8 +44,8 @@
 
   /* Sage -> green */
   --sage: #1F8F47;
-  --sage-moss: #1A7F3F;
-  --sage-wash: #E3F6EA;
+  --sage-moss: #726A63;          /* small labels: soft warm gray, 4.9:1 on the page */
+  --sage-wash: #EFECE5;          /* pale neutral behind those labels */
   --tertiary: #1A7F3F;
   --tertiary-container: #1F8F47;
 
@@ -64,14 +64,76 @@
   --hero-overlay-b: rgba(42, 23, 12, 0.18);
 }
 
+/* Filled orange buttons use the lighter orange #F9642C (orange text is unchanged);
+   on hover they deepen to the previous button orange. */
+:root { --btn-orange: #F9642C; }
+.btn-primary { --btn-bg: var(--btn-orange); --btn-bd: var(--btn-orange); }
+.btn-primary:hover { --btn-bg: var(--terracotta); --btn-bd: var(--terracotta); }
+
 /* Shared parish rules with the old navy or blush written in: same rules, same
    opacities, new colors only. */
 .drawer-scrim { background: rgba(42, 23, 12, .55); }
 .event-poster { box-shadow: 0 24px 54px rgba(59, 33, 19, .24); }
-.event-poster::after { background: linear-gradient(to bottom, transparent, rgba(42, 23, 12, .93) 64%, var(--navy-deep)); }
-.poster-label { color: #FFD9C7; }
 .page-hero::before { background: radial-gradient(circle at 85% 15%, rgba(201, 63, 12, .28), transparent 55%); }
-.page-hero h1 em { color: #FFD9C7; }
+
+/* Cream grounds (#EADFC0): every section that had a solid dark-brown background
+   (mission band, page headers, enrichment posters, next-step bars, footer) now
+   uses cream, and the light text on it turns brown so it stays readable.
+   Photo shading (home hero, video thumbnails) and the drawer dimmer stay dark.
+   Contrast on cream: --navy 11.2:1, #5A4A40 6.4:1, #6B4A35 6.0:1, --terracotta-deep 5.0:1. */
+:root { --cream: #EADFC0; }
+
+/* Mission band */
+.mission-scroll { background: var(--cream); color: var(--navy); }
+.mission-copy .overline { color: #6B4A35; }
+.mission-copy h2 .lit-word { color: var(--navy); }
+.mission-copy > .mission-support { color: #5A4A40; }
+.mission-hint { color: #6B4A35; }
+.mission-scroll .btn-ghost { --btn-fg: var(--navy); --btn-bd: rgba(59, 33, 19, .55); }
+.mission-scroll .btn-ghost:hover { --btn-bg: rgba(59, 33, 19, .08); --btn-bd: var(--navy); }
+
+/* Home hero: off-white (#F7F6F2) photo shading instead of brown; its outline button turns dark. */
+.home-hero .btn-ghost { --btn-fg: var(--navy); --btn-bd: rgba(59, 33, 19, .55); }
+.home-hero .btn-ghost:hover { --btn-bg: rgba(59, 33, 19, .08); --btn-bd: var(--navy); }
+
+/* Page headers on inner pages */
+.page-hero { background: var(--cream); color: var(--navy); }
+.page-hero .overline { color: #6B4A35; }
+.page-hero h1 em { color: var(--terracotta-deep); }
+.page-hero .lede { color: #5A4A40; }
+.jump-links a { border-color: rgba(59, 33, 19, .3); color: var(--navy); }
+.jump-links a:hover { background: rgba(59, 33, 19, .06); border-color: var(--navy); }
+/* The see-through header sits on the cream page header until you scroll. */
+body:has(.page-hero) .site-header:not(.is-solid),
+body:has(.home-hero) .site-header:not(.is-solid) { color: var(--navy); --nav-ink: var(--navy); --nav-line: var(--terracotta); --brand-tag: var(--terracotta-deep); }
+
+/* Enrichment poster cards: each card has its own bright color (coral, sky blue,
+   sunny yellow, green, lavender, after the Joyloo cards); the photo fades into it.
+   Near-black ink on every card is 7:1 or better; the action button is dark so it
+   stands out from every card color. */
+.event-poster { --poster: 234, 223, 192; background: rgb(var(--poster)); color: #1B1917; }
+.event-poster.ep-1 { --poster: 240, 140, 94; }   /* Music & Movement: coral #F08C5E */
+.event-poster.ep-2 { --poster: 114, 166, 236; }  /* STEM: sky blue #72A6EC */
+.event-poster.ep-3 { --poster: 247, 199, 82; }   /* Spanish: sunny yellow #F7C752 */
+.event-poster.ep-4 { --poster: 118, 194, 122; }  /* Gardening: green #76C27A */
+.event-poster.ep-5 { --poster: 181, 155, 232; }  /* Faith & Values: lavender #B59BE8 */
+/* Dark text needs a firmer fade under it than white text did, so the color builds up sooner. */
+.event-poster::after { background: linear-gradient(to bottom, rgba(var(--poster), 0), rgba(var(--poster), .9) 38%, rgb(var(--poster)) 60%); }
+.poster-label { color: #1B1917; }
+.event-poster p { color: #1B1917; }
+.poster-action { background: #1B1917; color: #FFFFFF; }
+.poster-action:hover { background: var(--navy); }
+
+/* Footer: butter yellow, with near-black headings and dark warm-gray links
+   (the Joyloo footer colors). On #FEE594: #1B1917 14.1:1, #4A433D 7.8:1. */
+.site-footer { background: #FEE594; color: #4A433D; }
+.footer-brand strong,
+.footer-times strong { color: #1B1917; }
+.site-footer h2 { color: #1B1917; }
+.footer-social a { color: #1B1917; }
+.footer-times li { border-bottom-color: rgba(27, 25, 23, .14); }
+.footer-bottom { border-top-color: rgba(27, 25, 23, .14); color: #4A433D; }
+.site-footer a:hover { color: #1B1917; text-decoration-color: var(--terracotta-deep); }
 
 /* ===== Header additions ===== */
 /* The preschool's own sun logo, on a white tile so it reads over photos and parchment alike. */
@@ -98,20 +160,20 @@
 .header-actions { display: flex; align-items: center; gap: .5rem; }
 .header-cta {
   display: none; align-items: center; min-height: 2.5rem; padding: .45rem 1rem;
-  border: 1.5px solid var(--terracotta); border-radius: var(--r);
-  background: var(--terracotta); color: var(--stone-parchment);
+  border: 1.5px solid var(--btn-orange); border-radius: var(--r);
+  background: var(--btn-orange); color: var(--stone-parchment);
   font-size: var(--label-lg); font-weight: 700; letter-spacing: .02em; text-decoration: none; white-space: nowrap;
   transition: background var(--dur-fast), border-color var(--dur-fast);
 }
-.header-cta:hover { background: var(--terracotta-deep); border-color: var(--terracotta-deep); }
+.header-cta:hover { background: var(--terracotta); border-color: var(--terracotta); }
 @media (min-width: 560px) and (max-width: 1199px) { .header-cta { display: inline-flex; } }
 @media (min-width: 1200px) { .header-actions { display: none; } }
 
 /* The tour button is the one filled item in the bar: the page's primary action. */
 .nav-item-cta .nav-external {
-  color: var(--stone-parchment); background: var(--terracotta); border-color: var(--terracotta);
+  color: var(--stone-parchment); background: var(--btn-orange); border-color: var(--btn-orange);
 }
-.nav-item-cta .nav-external:hover { background: var(--terracotta-deep); border-color: var(--terracotta-deep); }
+.nav-item-cta .nav-external:hover { background: var(--terracotta); border-color: var(--terracotta); }
 .drawer-cta { width: 100%; margin-top: var(--s-sm); }
 
 /* Footer: the preschool's own sun logo on a white tile. */
@@ -132,7 +194,7 @@ figure { margin: 0; }
   position: relative; isolation: isolate;
   display: flex; flex-direction: column; justify-content: flex-end;
   min-height: 92svh;
-  background: var(--navy-deep); color: var(--stone-parchment);
+  background: #F7F6F2; color: var(--navy);
   overflow: clip;
 }
 /* Photos start below the header bar, so no head ever sits behind the logo or menu. */
@@ -149,56 +211,74 @@ figure { margin: 0; }
 .home-hero-media::after {
   content: ""; position: absolute; inset: 0;
   background:
-    linear-gradient(180deg, rgba(42, 23, 12, .42) 0%, rgba(42, 23, 12, .18) 32%, rgba(42, 23, 12, .62) 62%, rgba(42, 23, 12, .9) 100%),
-    linear-gradient(90deg, rgba(42, 23, 12, .62) 0%, rgba(42, 23, 12, 0) 72%);
+    linear-gradient(180deg, rgba(247, 246, 242, .5) 0%, rgba(247, 246, 242, .3) 32%, rgba(247, 246, 242, .7) 62%, rgba(247, 246, 242, .92) 100%),
+    linear-gradient(90deg, rgba(247, 246, 242, .85) 0%, rgba(247, 246, 242, .55) 45%, rgba(247, 246, 242, 0) 72%);
 }
 .home-hero-inner {
   position: relative;
   display: grid; gap: var(--s-xl) var(--gutter);
   padding-top: calc(var(--header-h) + var(--s-2xl));
-  padding-bottom: 5rem;
+  padding-bottom: 3.5rem;
 }
-.home-hero .overline { color: rgba(250, 248, 245, .86); }
+.home-hero .overline { color: var(--navy); }
 .home-hero h1 {
   max-width: 11.5em;
   font-size: clamp(2.6rem, 1.5rem + 4.6vw, 5.4rem); line-height: .98; letter-spacing: -.035em;
   text-wrap: balance;
 }
-.home-hero h1 em { font-style: italic; font-weight: 400; color: #F3D2C6; }
-.home-hero .lede { max-width: 35rem; color: rgba(250, 248, 245, .9); }
+.home-hero h1 em { font-style: italic; font-weight: 400; color: var(--terracotta-deep); }
+.home-hero .lede { max-width: 35rem; color: var(--navy); }
 .home-hero .btn-row { margin-top: var(--s-lg); }
 
 .hero-facts {
-  align-self: end;
-  padding: 1.15rem 1.25rem 1.2rem;
-  background: rgba(42, 23, 12, .5);
+  padding: .9rem 1rem .95rem;
+  background: rgba(255, 255, 255, .96);   /* white */
   -webkit-backdrop-filter: blur(14px) saturate(1.1); backdrop-filter: blur(14px) saturate(1.1);
-  border: 1px solid rgba(250, 248, 245, .26); border-radius: var(--r-xl);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, .28);
+  border: 1px solid rgba(59, 33, 19, .14); border-radius: var(--r-xl);
+  box-shadow: 0 24px 60px rgba(59, 33, 19, .16);
 }
-.hero-facts h2 { font-family: var(--font-body); font-size: var(--label-sm); font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: rgba(250, 248, 245, .74); }
-.hero-facts dl { display: grid; grid-template-columns: 1fr 1fr; gap: .9rem 1.25rem; margin: .8rem 0 0; }
-.hero-facts dt { font-size: var(--label-sm); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #F0C987; }
-.hero-facts dd { margin: .2rem 0 0; font-family: var(--font-display); font-size: var(--headline-sm); line-height: 1.25; color: var(--stone-parchment); }
+.hero-facts h2 { font-family: var(--font-body); font-size: var(--label-sm); font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: #6B4A35; }
+.hero-facts dl { display: grid; grid-template-columns: auto auto; gap: .6rem 1.1rem; margin: .6rem 0 0; }
+.hero-facts dt { font-size: var(--label-sm); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--terracotta-deep); }
+.hero-facts dd { margin: .1rem 0 0; font-family: var(--font-display); font-size: var(--body-lg); line-height: 1.3; color: var(--navy); }
 .hero-facts .wide { grid-column: 1 / -1; }
 .hero-facts .nowrap { white-space: nowrap; }
-.hero-facts .link-arrow { margin-top: 1rem; color: var(--stone-parchment); text-decoration: underline; text-decoration-color: var(--terracotta); text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
-@media (min-width: 1024px) {
-  .home-hero-inner { grid-template-columns: 7fr minmax(19rem, 4fr); align-items: end; }
+.hero-facts .link-arrow { margin-top: .75rem; font-size: var(--body-sm); color: var(--navy); text-decoration: underline; text-decoration-color: var(--terracotta); text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
+/* Right column: facts box at the top beside the headline; the pause button at the
+   bottom, level with Schedule a Tour / See Programs by Age and flush right with the box. */
+.hero-side { display: flex; flex-direction: column; align-items: flex-end; gap: var(--s-md); }
+.hero-side .hero-facts { align-self: stretch; }
+/* From tablet up, the headline lines and the right column share one grid: the box
+   spans the overline, headline and subtitle rows (top level with the overline, bottom
+   level with the subtitle's last line); the pause button shares the buttons' row. */
+@media (min-width: 768px) {
+  .home-hero-inner { grid-template-columns: minmax(0, 1fr) auto; grid-auto-rows: auto; row-gap: 0; column-gap: var(--s-xl); }
+  .hero-copy, .hero-side { display: contents; }
+  .hero-copy > * { grid-column: 1; }
+  .hero-copy > .overline { grid-row: 1; justify-self: start; }
+  .hero-copy > h1 { grid-row: 2; }
+  .hero-copy > .lede { grid-row: 3; }
+  .hero-copy > .btn-row { grid-row: 4; }
+  .hero-side .hero-facts {
+    grid-column: 2; grid-row: 1 / 4; align-self: stretch; width: 17.5rem;
+    display: flex; flex-direction: column;
+  }
+  .hero-side .hero-facts .link-arrow { margin-top: auto; padding-top: .75rem; align-self: flex-start; }
+  .hero-side .hero-toggle { grid-column: 2; grid-row: 4; justify-self: end; align-self: end; }
 }
 
 .hero-toggle {
-  position: absolute; right: var(--margin); bottom: 1.1rem; z-index: 3;
-  display: inline-flex; align-items: center; gap: .5rem;
-  min-height: 2.75rem; padding: .4rem .9rem .4rem .55rem;
-  border: 1px solid rgba(250, 248, 245, .45); border-radius: var(--r-full);
-  background: rgba(42, 23, 12, .45); color: var(--stone-parchment);
+  position: relative; z-index: 3; flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2.9rem; height: 2.9rem; padding: 0;   /* same height as the .btn buttons beside it */
+  border: 1px solid rgba(59, 33, 19, .3); border-radius: 50%;
+  background: rgba(247, 246, 242, .85); color: var(--navy);
   -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
   font-size: var(--label-md); font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
   transition: background var(--dur-fast), border-color var(--dur-fast);
 }
-.hero-toggle:hover { background: rgba(42, 23, 12, .7); border-color: var(--stone-parchment); }
-.hero-toggle svg { width: 1.6rem; height: 1.6rem; }
+.hero-toggle:hover { background: rgba(247, 246, 242, .97); border-color: var(--navy); }
+.hero-toggle svg { width: 1.45rem; height: 1.45rem; }
 .hero-toggle .icon-play { display: none; }
 .home-hero.is-paused .hero-toggle .icon-play { display: block; }
 .home-hero.is-paused .hero-toggle .icon-pause { display: none; }
@@ -330,20 +410,23 @@ img.person-photo { width: 4.5rem; height: 4.5rem; object-fit: cover; background:
 .callout { margin-top: var(--s-lg); padding: 1.2rem 1.35rem; background: var(--sun-soft); border-radius: var(--r-lg); color: var(--on-surface); }
 .callout p + p { margin-top: .5rem; }
 
-.next-band .band-inner h2 { color: var(--stone-parchment); }
+/* Next-step bar: cream ground, brown text; its filled button becomes brown with cream text. */
+.next-band { --band-bg: var(--cream); --band-fg: var(--navy); --band-overline: #6B4A35; }
+.next-band .band .btn:hover,
+.next-band .btn:not(.btn-ghost):hover { --btn-bg: var(--navy-deep); --btn-bd: var(--navy-deep); }
+.next-band .band-inner h2 { color: var(--navy); }
 .next-band .btn-row { margin-top: 0; }
-.next-band .btn-ghost { --btn-bg: transparent; --btn-fg: var(--stone-parchment); --btn-bd: rgba(250, 248, 245, .7); }
-.next-band .btn-ghost:hover { --btn-bg: rgba(250, 248, 245, .12); --btn-bd: var(--stone-parchment); }
+.next-band .btn-ghost { --btn-bg: transparent; --btn-fg: var(--navy); --btn-bd: rgba(59, 33, 19, .55); }
+.next-band .btn-ghost:hover { --btn-bg: rgba(59, 33, 19, .08); --btn-bd: var(--navy); }
 
-/* Phones: the hero card sits under the copy, still on the dark ground. */
+/* Phones: the hero card sits under the copy, still on the off-white ground. */
 @media (max-width: 767px) {
   .home-hero { min-height: 0; }
   .home-hero-inner { padding-top: calc(var(--header-h) + 9rem); padding-bottom: 4.75rem; }
   .home-hero-media::after {
-    background: linear-gradient(180deg, rgba(42, 23, 12, .35) 0%, rgba(42, 23, 12, .55) 40%, rgba(42, 23, 12, .92) 72%, var(--navy-deep) 100%);
+    background: linear-gradient(180deg, rgba(247, 246, 242, .35) 0%, rgba(247, 246, 242, .78) 22%, rgba(247, 246, 242, .88) 45%, rgba(247, 246, 242, .95) 72%, #F7F6F2 100%);
   }
   .hero-facts dd { font-size: var(--body-lg); }
-  .hero-toggle { bottom: .9rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

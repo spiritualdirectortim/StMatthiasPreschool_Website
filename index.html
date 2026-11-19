@@ -131,7 +131,7 @@
       </div>
 
       <div class="container home-hero-inner">
-        <div>
+        <div class="hero-copy">
           <p class="overline" data-load style="--d:200ms">Catholic preschool in Redwood City</p>
           <h1 id="home-title" data-split style="--d:320ms">Play today. <em>Ready for kindergarten</em> tomorrow.</h1>
           <p class="lede" data-load style="--d:760ms">A High Quality Early Education Program Where Children Thrive Socially, Academically and Spiritually</p>
@@ -140,23 +140,25 @@
             <a class="btn btn-ghost" href="/programs/">See Programs by Age</a>
           </div>
         </div>
-        <aside class="hero-facts" aria-labelledby="facts-title" data-load style="--d:1050ms">
-          <h2 id="facts-title">At a glance</h2>
-          <dl>
-            <div><dt>Ages</dt><dd>2 to 5</dd></div>
-            <div><dt>Hours</dt><dd class="nowrap">7:30 a.m.–5:30 p.m.</dd></div>
-            <div class="wide"><dt>Days</dt><dd>Monday–Friday, all year</dd></div>
-            <div class="wide"><dt>Where</dt><dd>533 Canyon Road, Redwood City</dd></div>
-          </dl>
-          <a class="link-arrow" href="/admissions/#tuition">See tuition and hours</a>
-        </aside>
+        <!-- Right column: the facts box beside the headline, the photo pause button level with the buttons on the left -->
+        <div class="hero-side">
+          <aside class="hero-facts" aria-labelledby="facts-title" data-load style="--d:1050ms">
+            <h2 id="facts-title">At a glance</h2>
+            <dl>
+              <div><dt>Ages</dt><dd>2 to 5</dd></div>
+              <div><dt>Hours</dt><dd class="nowrap">7:30 a.m.–5:30 p.m.</dd></div>
+              <div class="wide"><dt>Days</dt><dd>Monday–Friday, all year</dd></div>
+              <div class="wide"><dt>Where</dt><dd>533 Canyon Road, Redwood City</dd></div>
+            </dl>
+            <a class="link-arrow" href="/admissions/#tuition">See tuition and hours</a>
+          </aside>
+          <button class="hero-toggle" type="button" data-hero-toggle aria-pressed="false" data-load style="--d:900ms">
+            <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7v10M15 7v10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7l8 5-8 5z" fill="currentColor"/></svg>
+            <span class="visually-hidden" data-hero-toggle-label>Pause photos</span>
+          </button>
+        </div>
       </div>
-
-      <button class="hero-toggle" type="button" data-hero-toggle aria-pressed="false">
-        <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7v10M15 7v10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
-        <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7l8 5-8 5z" fill="currentColor"/></svg>
-        <span data-hero-toggle-label>Pause photos</span>
-      </button>
     </section>
 
     <!-- Photo flight (parish feature): three mission photos travel down onto the three Programs by age cards. js/preschool.js -->
